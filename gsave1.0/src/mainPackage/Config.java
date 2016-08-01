@@ -23,7 +23,7 @@ public class Config {
     
 	public Config() throws IOException, ParseException {
 		//parse file and set variables 
-		FileReader rd = new FileReader(".save/config");
+		FileReader rd = new FileReader(".save/config.json");
 		
 		
 		JSONParser parser  = new JSONParser();
@@ -39,15 +39,11 @@ public class Config {
 			return;
 		}
 		if(!ob.containsKey("password")){
-			System.out.println("ParseError:password var not defined!");
+			System.out.println("ParseError: password var not defined!");
 			System.out.println("Try gsave config");
 			return;
 		}
-		if(!ob.containsKey("gmail")){
-			System.out.println("ParseError:system var not defined!");
-			System.out.println("Try gsave config");
-			return;
-		}
+		
 		
 		//getting value:
 		system = (String) ob.get("system");

@@ -32,19 +32,24 @@ public class FileManip {
 		File snapshots = new File(".save/snapshots");
 
 		if(!save.exists()){
-		System.out.println("[-]Cannot find file .save");
+		System.out.println("[-]Fatal Error: Cannot find directory .save");
+		System.out.println("[-]Try gsave init");
 		return false;
 		}
 		if(!config.exists()){
-			System.out.println("[-]Cannot find file .save/config.json");
+			System.out.println("[-]Error: Cannot find file .save/config.json");
+			System.out.println("[-]Try gsave config");
 			return false;
 		}
 		if(!snapLog.exists()){
-			System.out.println("[-]Cannot find file .save/snaplog.json");
+			System.out.println("[-]Fatal Error: Cannot find file .save/snaplog.json");
+			System.out.println("[-]Try gsave init");//all project must be reinitiated
+			//reinitiation of snaplog is complex 
 			return false;
 		}
 		if(!snapshots.exists()){
-			System.out.println("[-]Cannot find directory .save/spanshots");
+			System.out.println("[-]Fatal Error: Cannot find directory .save/spanshots");
+			System.out.println("[-]Try gsave init");
 			return false;
 		}
 		return true;
@@ -73,6 +78,7 @@ public class FileManip {
 		File config = new File(".save/config.json");
 		File snapLog = new File(".save/snaplog.json");
 		File snapshots = new File(".save/snapshots");
+		File head = new File(".save/head.txt");
 		
 		try{
 			save.mkdir();
@@ -107,7 +113,24 @@ public class FileManip {
 			System.out.println("init failed: could not create file .save/snaplog.json");
 			return false;
 		}
+		try{
+			head.createNewFile();
+		}catch(Exception e){
+			save.delete();
+			snapshots.delete();
+			config.delete();
+			snapLog.delete();
+			System.out.println("init failed: could not create file .save/head.txt");
+			return false;
+		}
 		
+		
+		
+		//initiate snaplog.json
+		FileWriter fw = new FileWriter(".save/snaplog.json");
+		BufferedWriter bw = new BufferedWriter(fw);
+		bw.write("[]");//empty JSONArray
+		bw.close();
 		
 		//make json object
 		String ch;
@@ -125,15 +148,16 @@ public class FileManip {
 		ch = sc.next();
 		ob.put("password",ch);
 		String text = ob.toJSONString();
-		FileWriter fw = new FileWriter(".save/config.json");
-		BufferedWriter bw = new BufferedWriter(fw);
+		FileWriter fw1 = new FileWriter(".save/config.json");
+		BufferedWriter bw1 = new BufferedWriter(fw1);
 		try{
-		bw.write(text);
+		bw1.write(text);
 		}catch(Exception e){
 			System.out.println("in here:");
 			return false;
 		}
 		bw.close();
+		bw1.close();
 		return true;
 		
 	}

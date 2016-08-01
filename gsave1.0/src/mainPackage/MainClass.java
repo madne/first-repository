@@ -57,7 +57,6 @@ public class MainClass {
 			}else{
 				//check initiation :
 				if(!FileManip.fullCheck()){
-					System.out.println("[-]Try gsave init ");
 					return ;
 				}
 				//check configurations
@@ -65,7 +64,6 @@ public class MainClass {
 				configCheck = cf.allSet;
 				if(!configCheck)
 					return;
-				
 				
 				
 				if (cmd.equals("changeStatus")){
@@ -82,9 +80,13 @@ public class MainClass {
 					System.out.println("System: " + cf.system);
 					System.out.println("Gmail: " +cf.gmail);
 					System.out.println("Password: " + cf.password);
-					
+					System.out.println("Corrent snapShot: " );
+					SnapShot.getCurrentHeadInfo();
+					System.out.println("-----------------------");
 				}else if (cmd.equals("snapshot")){
-					System.out.println("command on build state");
+					if(!SnapShot.makeSnapShot()){
+						System.out.println("[-]Check Write permission");
+					}
 				}else if (cmd.equals("status")){
 					System.out.println("command on build state");
 				}else if (cmd.equals("config")){
@@ -95,7 +97,6 @@ public class MainClass {
 				}
 				
 			}
-			
 		}
 
 	}
