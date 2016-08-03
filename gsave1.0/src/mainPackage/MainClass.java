@@ -9,6 +9,15 @@ import org.json.simple.parser.ParseException;
 public class MainClass {
 
 	
+		public static void listConfigurations(){
+			//listing all configurations
+			System.out.println("[*]All configuurations:");
+			System.out.println("----------------------");
+			System.out.println("System: " + cf.system);
+			System.out.println("Gmail: " +cf.gmail);
+			System.out.println("Password: " + cf.password);
+			System.out.println("Corrent snapShot: " );
+		}
 
 		public static void listOptions(){
 			System.out.println("listing all options:");
@@ -22,20 +31,16 @@ public class MainClass {
 		
 		public static boolean configCheck;
 		public static boolean initCheck;
+		public static Config cf = null;
 		
 		public static void main(String[] args) throws IOException, ParseException {
-			Config cf = null;
-			
-			
-			
+	
 			//num args
 			String cmd;
 			if(args.length==0){
 				listOptions();
 				return;
 			}
-			
-			
 			
 			cmd = args[0];
 			if(cmd.equals("init")){
@@ -65,22 +70,15 @@ public class MainClass {
 				if(!configCheck)
 					return;
 				
-				
-				if (cmd.equals("changeStatus")){
-					System.out.println("command on build state");
+				if (cmd.equals("config")){
+					cf.resetConfigurations();
 				}else if (cmd.equals("upload")){
 					System.out.println("command on build stat");
+				}else if (cmd.equals("delete")){
+					SnapShot.deleteSnapShot(); 
 				}else if (cmd.equals("info")){
-				
 					System.out.println("[+]Project initiated");
-					
-					//listing all configurations
-					System.out.println("[*]All configuurations:");
-					System.out.println("----------------------");
-					System.out.println("System: " + cf.system);
-					System.out.println("Gmail: " +cf.gmail);
-					System.out.println("Password: " + cf.password);
-					System.out.println("Corrent snapShot: " );
+					listConfigurations();
 					SnapShot.getCurrentHeadInfo();
 					System.out.println("-----------------------");
 				}else if (cmd.equals("snapshot")){
@@ -88,17 +86,17 @@ public class MainClass {
 						System.out.println("[-]Check Write permission");
 					}
 				}else if (cmd.equals("status")){
-					System.out.println("command on build state");
-				}else if (cmd.equals("config")){
-					System.out.println("command on build state");
-					//lunch config module (sets configuration file)
+					File fl = new File(".");
+					CheckSome.checkAll(fl);
+				}else if (cmd.equals("log")){
+					SnapShot.getLog();
+				}else if (cmd.equals("switch")){
+					SnapShot.switchSnapshot();
 				}else{
-					System.out.println(cmd + ": Command not found ");
-				}
-				
+					System.out.println("[-]"+cmd + ": Command not found ");
+				}		
 			}
 		}
-
 	}
 
 

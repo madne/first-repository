@@ -65,6 +65,8 @@ public class FileManip {
 				if(f.isFile()){
 					f.delete();
 				}else{
+					if(f.getName().equals(".save"))
+						continue;
 					delete_rf(f.getAbsolutePath());
 					f.delete();
 				}
@@ -236,12 +238,7 @@ public class FileManip {
 		}
 	}
 	
-	//copie all the files under source to dest folder
-	public static void copyFolderSructur(String source,String dest){
-		File sr = new File(source);
-		File des = new File(dest);
-	}
-	
+
 	
 	
 	public static void copyFile(String source_, String dest) throws IOException {
