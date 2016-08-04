@@ -48,7 +48,7 @@ class SnapShot{
 			}
 		}
 		}catch(Exception e){
-			System.out.println("[-]Error: Could not Make snapthot (error cloning directorie)");
+			System.out.println("[-]Error: Could not Make snapthot (error cloning directory)");
 			return false;
 		}
 		return true;
@@ -72,7 +72,7 @@ class SnapShot{
 		String time = list[1];
 		int snapId = totalDate.hashCode();
 		Scanner sc = new Scanner(System.in);
-		System.out.print("Snapshot-Title: ");
+		System.out.print("[*]Snapshot-Title: ");
 		String title = sc.nextLine();
 		
 		//make json object
@@ -178,8 +178,9 @@ class SnapShot{
 			System.out.println("date:" + ob.get("date"));
 			System.out.println("time:" + ob.get("time"));
 			System.out.println("id:" + ob.get("id"));
+			System.out.println("-------------------");
 		}
-		System.out.println("-------------------");
+		
 	}
 	
 	public static JSONObject selectJsonObject() throws IOException, ParseException{
@@ -202,13 +203,12 @@ class SnapShot{
 		Scanner sc = new Scanner(System.in);
 		int x1 = sc.nextInt();
 		if(x1>size||x1<=0){
-			System.out.println("invalid index!");
+			System.out.println("[-]Invalid index!");
 			return null;
 		}
 		JSONObject ob  = (JSONObject) arr.get(x1-1);
 		return ob;
 	}
-	
 	public static  void switchSnapshot() throws ParseException, IOException{
 		
 		JSONObject ob = selectJsonObject();
@@ -238,7 +238,7 @@ class SnapShot{
 		
 		//get new files from .save/snapshots/newId  to .
 		cloneDirectory(".save/snapshots/" + newId, ".");
-		System.out.println("[+]Success ");
+		System.out.println("[+]Success !");
 		
 	}
 	
@@ -263,6 +263,6 @@ class SnapShot{
 		
 		//delete associated save folder(discomment when executuble is made)
 		FileManip.delete_rf(".save/snapshots/"+selectedId);
-		System.out.println("[+]Success ");
+		System.out.println("[+]Success !");
 	}
 }

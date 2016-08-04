@@ -28,16 +28,16 @@ public class Config {
     	JSONObject ob = new JSONObject();
     	String ch;
     	Scanner sc = new Scanner(System.in);
-    	System.out.println("[*]Resetting gonfigurations");
-    	System.out.print("[*]Gmail Account: ");
+    	System.out.println("[*]Resetting configurations:");
+    	System.out.print("[?]Gmail Account: ");
     	ch = sc.next();
     	gmail=ch;
     	ob.put("gmail", ch);
-    	System.out.print("[*]Gmail Password: ");
+    	System.out.print("[?]Gmail Password: ");
     	ch = sc.next();
     	password=ch;
     	ob.put("password", ch);
-    	System.out.print("[*]System: ");
+    	System.out.print("[?]System: ");
     	ch = sc.next();
     	system=ch;
     	ob.put("system",ch);
@@ -46,7 +46,7 @@ public class Config {
     	BufferedWriter bw = new BufferedWriter(fw);
     	bw.write(ch);
     	bw.close();
-    	System.out.println("[+]All cufigurations set");
+    	System.out.println("[+]All cufigurations set !");
     }
     
 	public Config() throws IOException, ParseException {
@@ -57,18 +57,18 @@ public class Config {
 		JSONParser parser  = new JSONParser();
 		JSONObject ob = (JSONObject) parser.parse(new FileReader(".save/config.json"));
 		if(!ob.containsKey("system")){
-			System.out.println("ParseError:system var not defined!");
-			System.out.println("Try gsave config");
+			System.out.println("[-]ParseError: system var not defined!");
+			System.out.println("[-]Try gsave config");
 			return;
 		}
 		if(!ob.containsKey("gmail")){
-			System.out.println("ParseError:gmail var not defined!");
-			System.out.println("Try gsave config");
+			System.out.println("[-]ParseError: gmail var not defined!");
+			System.out.println("[-]Try gsave config");
 			return;
 		}
 		if(!ob.containsKey("password")){
-			System.out.println("ParseError: password var not defined!");
-			System.out.println("Try gsave config");
+			System.out.println("[-]ParseError: password var not defined!");
+			System.out.println("[-]Try gsave config");
 			return;
 		}
 		

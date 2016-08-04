@@ -11,22 +11,25 @@ public class MainClass {
 	
 		public static void listConfigurations(){
 			//listing all configurations
-			System.out.println("[*]All configuurations:");
-			System.out.println("----------------------");
+			System.out.println("[*]Listing all configurations:");
+			System.out.println("-----------------------------");
 			System.out.println("System: " + cf.system);
 			System.out.println("Gmail: " +cf.gmail);
 			System.out.println("Password: " + cf.password);
-			System.out.println("Corrent snapShot: " );
+			System.out.println("Corrent Snapshot: " );
 		}
 
 		public static void listOptions(){
-			System.out.println("listing all options:");
-			System.out.println("--------------------");
-			System.out.println("gsave init");
-			System.out.println("gsave snapshot");
-			System.out.println("gsave status");
-			System.out.println("gsave changeStatus statusName");
-			System.out.println("gsave upload");
+			System.out.println("[*]listing all options:");
+			System.out.println("----------------------");
+			System.out.println("->gsave init");
+			System.out.println("->gsave snapshot");
+			System.out.println("->gsave status");
+			System.out.println("->gsave info");
+			System.out.println("->gsave log");
+			System.out.println("->gsave switch");
+			System.out.println("->gsave delete");
+			System.out.println("->gsave upload (onbuild)");
 		}
 		
 		public static boolean configCheck;
@@ -46,7 +49,7 @@ public class MainClass {
 			if(cmd.equals("init")){
 				if(FileManip.checkInit()){
 					System.out.println("[-]Project already initiated ");
-					System.out.println("[*]Delete older configuration (y/n):");
+					System.out.print("[*]Delete older configuration (y/n): ");
 					Scanner sc = new Scanner(System.in);
 					String answer = sc.next();
 					answer = answer.toLowerCase();
@@ -73,17 +76,17 @@ public class MainClass {
 				if (cmd.equals("config")){
 					cf.resetConfigurations();
 				}else if (cmd.equals("upload")){
-					System.out.println("command on build stat");
+					System.out.println("[-]Command on build state");
 				}else if (cmd.equals("delete")){
 					SnapShot.deleteSnapShot(); 
 				}else if (cmd.equals("info")){
 					System.out.println("[+]Project initiated");
 					listConfigurations();
 					SnapShot.getCurrentHeadInfo();
-					System.out.println("-----------------------");
+					System.out.println("-------------------------");
 				}else if (cmd.equals("snapshot")){
 					if(!SnapShot.makeSnapShot()){
-						System.out.println("[-]Check Write permission");
+						System.out.println("[-]Check Write permission !");
 					}
 				}else if (cmd.equals("status")){
 					File fl = new File(".");

@@ -85,14 +85,14 @@ public class FileManip {
 		try{
 			save.mkdir();
 		}catch(Exception e){
-			System.out.println("init failed: could not create directory .save");
+			System.out.println("[-]Initiation failed: could not create directory .save");
 			return false;
 		}
 		
 		try{
 			snapshots.mkdir();
 		}catch(Exception e){
-			System.out.println("init failed: could not create directory .save/snapshots");
+			System.out.println("[-]Initiation failed: could not create directory .save/snapshots");
 			save.delete();
 			return false;
 		}
@@ -102,7 +102,7 @@ public class FileManip {
 		}catch(Exception e){
 			save.delete();
 			snapshots.delete();
-			System.out.println("init failed: could not create file .save/config.json");
+			System.out.println("[-]Initiation failed: could not create file .save/config.json");
 			return false;
 		}
 		
@@ -112,7 +112,7 @@ public class FileManip {
 			save.delete();
 			snapshots.delete();
 			config.delete();
-			System.out.println("init failed: could not create file .save/snaplog.json");
+			System.out.println("[-]Initiation failed: could not create file .save/snaplog.json");
 			return false;
 		}
 		try{
@@ -122,7 +122,7 @@ public class FileManip {
 			snapshots.delete();
 			config.delete();
 			snapLog.delete();
-			System.out.println("init failed: could not create file .save/head.txt");
+			System.out.println("[-]Initiation failed: could not create file .save/head.txt");
 			return false;
 		}
 		
@@ -138,15 +138,15 @@ public class FileManip {
 		String ch;
 		JSONObject ob = new JSONObject();
 		Scanner sc = new Scanner(System.in);
-		System.out.println("System:");
+		System.out.println("[?]System: ");
 		ch = sc.next();
 		ob.put("system",ch);
 
-		System.out.println("gmail:");
+		System.out.println("[?]Gmail: ");
 		ch = sc.next();
 		ob.put("gmail",ch);
 		
-		System.out.println("password:");
+		System.out.println("[?]Password: ");
 		ch = sc.next();
 		ob.put("password",ch);
 		String text = ob.toJSONString();
@@ -155,7 +155,6 @@ public class FileManip {
 		try{
 		bw1.write(text);
 		}catch(Exception e){
-			System.out.println("in here:");
 			return false;
 		}
 		bw.close();
@@ -164,81 +163,6 @@ public class FileManip {
 		
 	}
 	
-	public static void init101(){
-		boolean del = true;
-		String cdir = System.getProperty("user.dir"); 
-		File dir = new File(cdir + "/.save");
-		if(dir.exists()){
-			if(dir.isDirectory())
-				System.out.println(".save already exists as a directory !");
-			else
-				System.out.println(".save already exists as a file!");
-			
-			System.out.println("overwrite it (y/n)?  ");
-			Scanner sc = new Scanner(System.in);
-			String  c ;
-			c=sc.next();
-			if(!c.equals("y")){
-				System.out.println("initiation failed");
-				del = false;
-			}else{
-				//delete file or folder
-				if(!dir.delete()){
-					System.out.println("initiation failed: could not delete .save");
-				}
-			}
-		}
-		if(del){
-			//start initiation:
-			if(!dir.mkdir()){
-				System.out.println("initiation failed: could not create directory .save ");
-			}else{
-				File conf = new File (cdir + "/.save/config.json");
-				try{
-					conf.createNewFile();
-				}catch(Exception e){
-					System.out.println("initiatin failed: could not create file config.json");
-					del = false;
-					dir.delete();
-				}
-				
-				if(del){
-					//initiate config file
-					String config = "";
-					String val;
-					System.out.println("initiation config file");
-					System.out.println("gmail Account: ");
-					Scanner sc = new Scanner(System.in);
-					val = sc.next();
-					config = "gmail="+val+"\n";
-					System.out.println("gmail Password: ");
-					val = sc.next();
-					config +="password="+val+"\n";
-					System.out.println("system: ");
-					val = sc.next();
-					config+="system="+val+"\n";
-					
-					//print config var to config file:
-					try {
-			            // Assume default encoding.
-			            FileWriter fileWriter = new FileWriter(".save/config.json");
-			            
-			            BufferedWriter bufferedWriter =	new BufferedWriter(fileWriter);
-			            bufferedWriter.write(config);
-			         
-			            bufferedWriter.close();
-			        }catch(Exception e){
-			        	System.out.println("initation failed : unable to write to file config.json");
-			        	//delete files created:
-			        	conf.delete();
-			        	dir.delete();
-			        }
-				}
-			}
-		}
-	}
-	
-
 	
 	
 	public static void copyFile(String source_, String dest) throws IOException {
@@ -269,4 +193,5 @@ public class FileManip {
 	    }
 	}
 
+	
 }
