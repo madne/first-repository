@@ -83,7 +83,7 @@ public class MainClass {
 					System.out.println("[+]Project initiated");
 					listConfigurations();
 					SnapShot.getCurrentHeadInfo();
-					System.out.println("-------------------------");
+					System.out.println("----------------------------");
 				}else if (cmd.equals("snapshot")){
 					if(!SnapShot.makeSnapShot()){
 						System.out.println("[-]Check Write permission !");

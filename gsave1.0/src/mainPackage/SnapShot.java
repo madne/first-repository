@@ -170,6 +170,10 @@ class SnapShot{
 	public static void getLog() throws ParseException, IOException{
 		JSONArray arr = getSnapLogJsonArray();
 		int size = arr.size();
+		if(size==0){
+			System.out.println("[-]No snapshots yet ");
+			return ;
+		}
 		System.out.println("[*]All Snapshots:");
 		System.out.println("-------------------");
 		for(int i=0;i<size;i++){
@@ -211,6 +215,13 @@ class SnapShot{
 	}
 	public static  void switchSnapshot() throws ParseException, IOException{
 		
+		//check for snapshots using head (if head is empty->no snapshots yet)
+		String headId = getHeadId();
+		if(headId==null){
+			System.out.println("[-]No snapshots yet");
+			return;
+		}
+		
 		JSONObject ob = selectJsonObject();
 		
 		//update the head:
@@ -244,10 +255,15 @@ class SnapShot{
 	
 	
 	public static void deleteSnapShot() throws IOException, ParseException{
-		JSONObject ob = selectJsonObject();
+		
 		//warn if selected ob is the head object:
-		String selectedId = (String) ob.get("id");
 		String headId = getHeadId();
+		if(headId==null){
+			System.out.println("[-]No snapsots to delete ");
+			return ;
+		}
+		JSONObject ob = selectJsonObject();
+		String selectedId = (String) ob.get("id");
 		if(selectedId.equals(headId)){
 			System.out.println("[-]Selected Snapshot is head snapshot !");
 			System.out.println("[-]try switch or make a new snapshot before delete operation");

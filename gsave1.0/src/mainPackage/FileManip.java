@@ -138,15 +138,15 @@ public class FileManip {
 		String ch;
 		JSONObject ob = new JSONObject();
 		Scanner sc = new Scanner(System.in);
-		System.out.println("[?]System: ");
+		System.out.print("[?]System: ");
 		ch = sc.next();
 		ob.put("system",ch);
 
-		System.out.println("[?]Gmail: ");
+		System.out.print("[?]Gmail: ");
 		ch = sc.next();
 		ob.put("gmail",ch);
 		
-		System.out.println("[?]Password: ");
+		System.out.print("[?]Password: ");
 		ch = sc.next();
 		ob.put("password",ch);
 		String text = ob.toJSONString();

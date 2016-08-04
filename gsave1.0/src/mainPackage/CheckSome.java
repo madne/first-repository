@@ -38,6 +38,12 @@ public class CheckSome {
 	}
 	
 	public static void checkAll(File fl) throws IOException{
+		//check for snapshots using head file
+		String headId = SnapShot.getHeadId();
+		if(headId==null){
+			System.out.println("[-]No snapshots yet");
+			return ;
+		}
 		File[] list = fl.listFiles();
 		for(File f : list ){
 			if(f.getName().equals(".save"))
